@@ -24,6 +24,19 @@ class PostsController extends Controller
         // g tawag dere ang verifycategoriescount nga middleware for only ceate function and store function aron then make sure sa function construct duha ka underscore 
         $this->middleware('VerifyCategoriesCount')->only(['create','store']);
     }
+    public function fb_clone(){
+        return view('main');
+    }
+    public function bootstrap(){
+        return view('bootstrap');
+    }
+
+    public function profile(){
+        return view('profile');
+    }
+    public function list_user(){
+        return view('list-of-user');
+    }
 
     public function index_admin()
     {
@@ -37,13 +50,17 @@ class PostsController extends Controller
           $current_user = auth()->user()->id;
           $user = User::find($current_user);
           $friend = $user->friends->pluck('id')->toArray();// g array nako ne siya kay ang sa user daghay friend then i use pluck('id') aron kuhaon tanan i.d. sa friend ana nga user
-
+          //dd($friend);
 
   //this query it means select all post where user_id is current user or user_id is equal to the value in the friend variable as you can see i use "orwhere", aron kanang duha ka g query nako is kolektahon niya then i use "use($friend)" aron ang variable nga friend sa taas atong magamit then i use "whereIn" kay ang $friend ang value ana is array so wherein dapat gamiton aron basahon niya ang array
-          $data = Post::where('user_id','=', $current_user)
-          ->orwhere(function ($query) use($friend){
-           $query->whereIn('user_id', $friend);
-            })->orderBy('created_at', 'desc')->get();
+
+          //$data = Post::where('user_id','=', $current_user)
+         // ->orwhere(function ($query) use($friend){
+          // $query->whereIn('user_id', $friend);
+          //  })->orderBy('created_at', 'desc')->get();
+          $data = Post::where('user_id', $friend)->orwhere('user_id', $current_user)
+          ->get();
+         // dd($data);
           return view('post.post_user_index')->with('data', $data);
           //dd($data);
             

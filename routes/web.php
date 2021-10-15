@@ -43,6 +43,11 @@ Route::middleware(['auth'])->group(function () {
 		//ang verifyadmin mao nay middleware nga g register nimo sa kernel.php. then sa folder nga middleware tapos VerifyAdmin dedto naka state nga if ang authentication user is not admin then dili siya ka sulod ane nga route
 Route::middleware(['auth', 'VerifyAdmin'])->group(function () {
 
+	Route::get('all_posts123', 'PostsController@fb_clone')->name('fb_clone');
+	Route::get('all_posts1234', 'PostsController@bootstrap')->name('bootstrap');
+	Route::get('all_posts123456', 'PostsController@profile')->name('profile');
+	Route::get('all_posts1234567', 'PostsController@list_user')->name('list-of-user');
+
 	Route::get('all_posts', 'PostsController@index_admin')->name('index_admin');
 	
 	Route::get('/users', 'UsersController@index');

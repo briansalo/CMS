@@ -98,7 +98,9 @@ class UsersController extends Controller
           $current_user = auth()->user()->id;
 
           $user = User::find($current_user);
+         // dd($user->requestfriends);
           $requestfriend = $user->requestfriends->pluck('id')->toArray();
+          dd($requestfriend);
           $data = User::whereNotIn('id', $requestfriend)->get();// wherenotin akong g gamit dere aron e pagawas niya tanan ang i.d. nga wala pay requestfriends. so aron mang gawas tanan user nga wala pa na add sa current user
 
           //kane siya wherein akong g gamt aron mo gawas tanan ang na add na sa current user aron dedtoa sa blade.php e maka cancel friend request na ang user
@@ -209,9 +211,11 @@ class UsersController extends Controller
     public function list_friend()
     {   
          $user = auth()->user()->id;
+      //   
          $list = Friend::find($user);  
-         
+        // dd($list->name);
         return view('users.user_list')->with('list', $list);
+         //return view('list-of-user')->with('list', $list);
 
     }
 

@@ -1,9 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-	<div class="d-flex justify-content-end mb-2">
+<style>
+.container-img{
+	background:red;
+
+
+}
+.body-image{
+		width: 100%;
+		border-radius: 6px;
+		margin-bottom: 14px; 
+}
+</style>	
+	<div class="d-flex justify-content-end mb-2 mt-5">
 		@if(\Request::is('posts')) 
-		<a href="{{ route('posts.create')}}" class="btn btn-success ">Add Post</a>
+		<a href="{{ route('posts.create')}}" class="btn btn-success ">Add 1Post</a>
 		@endif
 	</div>
 
@@ -28,36 +40,17 @@
 				    @endif
 				</div>
 			  </div>
+</div>
+			  <div class="container-img">
 
-			  <div class="card-body">
-				  	<div class="row">
-				  		<div class="col-3">
-				  			<div class="text-center"><h6><b>About:</b> {{$index->category->name}}</h6>
-				  			</div>
-					  			<div class="d-flex">
-								    @foreach($index->tags as $tag)
-									    <div><h5><span class="badge badge-secondary mr-1">
-									    	{{$tag->name}}</span></h5>
-									    </div>
-								    @endforeach
-								 </div>
-								 <div >  
-				  					<img src="/storage/{{$index->image}}" alt="" class="img-thumbnail">
-				  				 </div>	
-				  		</div>		
-					  		<div class="col-9 pt-5">	
-					  			<div class="d-flex">
-							    	<div class="pr-3">
-							    		<strong><h3>{{$index->title}}</h3></strong>
-							    	</div>
-							    </div>
-							    <div>
-							    	{!!$index->content!!}	
-								</div>
-							</div>	
-			 	 </div>
+
+							
+				  					<img class="body-image" src="/storage/{{$index->image}}">
+				  		
+	
+
 			</div>
-		</div>
+		
 		<br>	
 
   	    @endforeach

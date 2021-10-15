@@ -23,6 +23,12 @@
 <style>
  a.btn-info{
     color: #fff;
+ } 
+ .anyClass{
+height: 300px;
+overflow-y: scroll;
+position: sticky;
+top: 0;   
  }
 </style>
     @yield('css')
@@ -31,7 +37,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand  " href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -86,9 +92,9 @@
             </div>
         </nav>
 
-        <main class="py-4">  
+ 
         @auth
-        <div class="container">
+        <div class="container-full">
            @if(session()->has('success'))
                   <div class="alert alert-success">
                     {{ session()->get('success')}}
@@ -100,14 +106,13 @@
                   </div>
             @endif           
             <div class="row">
-                <div class="col-md-3 mt-5">
+                <div class="col-12">
+                    <div class="row">
+                <div class="col-md-3 mt-5 anyClass">
                     <ul class="list group">
                         <!-- (OPEN) "isadmin" method. naa na siya sa user model dedtoa sa model g define dedtoa nga ang isadmin method kay pag ang role is admin -->
                         @if(auth()->user()->superAdmin() or auth()->user()->isAdmin())
-                            <li class="list-group-item">
-                                <a href="users">User</a>
-                            </li>
-                            
+                    
                             <li class="list-group-item">
                                 <a href="{{ route('index_admin')}}">All Post</a>
                             </li>
@@ -149,18 +154,45 @@
                      @yield('content')
                  </div>    
                   @else   
-                <div class="col-md-8">
+                <div class="col-md-6">
                      @yield('content')
                 </div>
+                <!-- right sidebar-->
+                <div class="col-md-3 mt-5 anyClass">
+                    <ul class="list group">
+                        <!-- (OPEN) "isadmin" method. naa na siya sa user model dedtoa sa model g define dedtoa nga ang isadmin method kay pag ang role is admin -->
+                        @if(auth()->user()->superAdmin() or auth()->user()->isAdmin())
+                    
+                            <li class="list-group-item">
+                                <a href="{{ route('fb_clone')}}">fb clone</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{{ route('bootstrap')}}">bootstrap</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{{ route('profile')}}">profile</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{{ route('list-of-user')}}">list-of-user</a>
+                            </li>
+                           @endif 
+                           @if(auth()->user()->superAdmin()) 
+                            <li class="list-group-item">
+                                <a href="{{ route('trashed_post')}}">Trashed Post</a>
+                            </li>
+                             @endif                         
+                    </ul>  
+                         
+                </div>
                 @endif 
-                 <!-- close -->
-            </div>
-        </div>  
+                 </div></div>
+            </div><!--row -->
+        </div>  <!--container -->
         @else
         @yield('content')
         @endauth
-        </main>
-    </div>
+
+    </div><!--class id app -->
 
 <!-- kay g balhen man nato ne nga script sa ubos gikan sa taas walaon nato ang defer nga naka butang ane aron mo function siya kay naa na siya sa ubos gamit ratong defer pag naa ne siya sa taas -->
 <script src="{{ asset('js/app.js') }}"></script>
